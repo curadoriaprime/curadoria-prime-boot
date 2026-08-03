@@ -1,0 +1,8 @@
+Leia estes arquivos públicos (fetch das URLs raw) ANTES de produzir qualquer coisa, salvando com os mesmos nomes em /home/user:
+
+https://raw.githubusercontent.com/SEU-USUARIO/curadoria-prime-boot/main/README.md
+https://raw.githubusercontent.com/SEU-USUARIO/curadoria-prime-boot/main/ARTIGO-A-GUTENBERG.html
+https://raw.githubusercontent.com/SEU-USUARIO/curadoria-prime-boot/main/CHECKLIST-EEAT-PUBLICO.md
+
+Este repositório público contém APENAS o espelho do modelo Gutenberg e os padrões E-E-A-T da casa.
+Por estratégia, ele NÃO contém: handoff de sessão, roadmap de pautas, log-mestre de decisões e packs de preços — esses eu anexo à parte (vêm do repositório privado da operação). Me diga quais você precisa além destes.
