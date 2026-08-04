@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🚚 Portabilidade do Agente — Curadoria Prime</title>
+<style>
+  :root{
+    --bg:#f1f5f9; --card:#ffffff; --soft:#f8fafc;
+    --ink:#1e293b; --text:#334155; --muted:#64748b;
+    --line:#e2e8f0; --primary:#1d4ed8; --primary-soft:#eff6ff;
+    --green:#15803d; --green-soft:#f0fdf4;
+    --amber:#b45309; --amber-soft:#fffbeb;
+    --red:#b91c1c; --red-soft:#fef2f2;
+    --radius:12px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+    background:var(--bg); color:var(--text); font-size:15.5px; line-height:1.65;
+  }
+  .wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:linear-gradient(135deg,#1e293b 0%,#1d4ed8 120%);
+    color:#fff; padding:52px 0 44px; margin-bottom:0;
+  }
+  .hero h1{font-size:30px;line-height:1.25;margin-bottom:10px}
+  .hero p{color:#dbeafe;max-width:720px}
+  .hero .badge{
+    display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);
+    border-radius:999px;padding:4px 14px;font-size:12.5px;font-weight:600;margin-bottom:16px;letter-spacing:.4px
+  }
+
+  /* ---------- Nav ---------- */
+  .topnav{
+    position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .topnav .wrap{display:flex;gap:4px;overflow-x:auto;padding-top:8px;padding-bottom:8px}
+  .topnav a{
+    white-space:nowrap;color:var(--muted);text-decoration:none;font-size:13.5px;font-weight:600;
+    padding:6px 12px;border-radius:8px;transition:.15s
+  }
+  .topnav a:hover{background:var(--primary-soft);color:var(--primary)}
+
+  section{padding:46px 0 8px}
+  section > .wrap > h2{font-size:22px;color:var(--ink);margin-bottom:6px}
+  section > .wrap > p.sub{color:var(--muted);font-size:14.5px;margin-bottom:22px;max-width:760px}
+
+  /* ---------- Cards ---------- */
+  .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:18px}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px 22px;box-shadow:0 1px 2px rgba(15,23,42,.05)
+  }
+  .card h3{font-size:15.5px;color:var(--ink);margin-bottom:6px}
+  .card p{font-size:14px;color:var(--muted)}
+  .card .ico{font-size:24px;display:block;margin-bottom:10px}
+
+  /* ---------- Quiz ---------- */
+  .quiz-box{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;margin-top:18px}
+  .quiz-q{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:16px}
+  .quiz-step{color:var(--muted);font-size:12.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:6px}
+  .quiz-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+  .quiz-opt{
+    text-align:left;background:var(--soft);border:2px solid var(--line);border-radius:10px;
+    padding:14px 16px;cursor:pointer;font:inherit;color:var(--text);transition:.15s
+  }
+  .quiz-opt:hover{border-color:var(--primary);background:var(--primary-soft)}
+  .quiz-opt strong{display:block;color:var(--ink);margin-bottom:2px}
+  .quiz-opt span{font-size:13px;color:var(--muted)}
+  .quiz-result{
+    display:none;background:var(--green-soft);border:1px solid #bbf7d0;border-radius:10px;
+    padding:18px 20px;margin-top:8px
+  }
+  .quiz-result.show{display:block;animation:fadein .35s}
+  .quiz-result h4{color:var(--green);font-size:16px;margin-bottom:4px}
+  .quiz-result p{font-size:14px;color:var(--text);margin-bottom:12px}
+  .btn{
+    display:inline-block;background:var(--primary);color:#fff;border:none;border-radius:9px;
+    padding:9px 18px;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;transition:.15s
+  }
+  .btn:hover{filter:brightness(1.1)}
+  .btn.ghost{background:transparent;color:var(--primary);border:1.5px solid var(--primary)}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* ---------- Tabs ---------- */
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 0}
+  .tab-btn{
+    background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:10px 16px;
+    font:inherit;font-size:13.5px;font-weight:700;color:var(--muted);cursor:pointer;transition:.15s
+  }
+  .tab-btn:hover{border-color:var(--primary);color:var(--primary)}
+  .tab-btn.active{background:var(--primary);border-color:var(--primary);color:#fff}
+  .tab-panel{display:none;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;margin-top:14px}
+  .tab-panel.active{display:block;animation:fadein .3s}
+  .tab-panel h3{color:var(--ink);font-size:18px;margin-bottom:4px}
+  .cost-badge{
+    display:inline-block;font-size:12.5px;font-weight:700;border-radius:999px;padding:4px 12px;margin:6px 0 16px
+  }
+  .cost-free{background:var(--green-soft);color:var(--green);border:1px solid #bbf7d0}
+  .cost-paid{background:var(--amber-soft);color:var(--amber);border:1px solid #fde68a}
+  .steps{list-style:none;counter-reset:step;margin:6px 0 14px}
+  .steps li{
+    counter-increment:step;position:relative;padding:10px 0 10px 48px;border-bottom:1px dashed var(--line);font-size:14.5px
+  }
+  .steps li:last-child{border-bottom:none}
+  .steps li::before{
+    content:counter(step);position:absolute;left:0;top:9px;width:32px;height:32px;border-radius:50%;
+    background:var(--primary-soft);color:var(--primary);font-weight:800;font-size:14px;
+    display:flex;align-items:center;justify-content:center;border:1px solid #bfdbfe
+  }
+  .note{
+    background:var(--amber-soft);border:1px solid #fde68a;border-radius:10px;
+    padding:12px 16px;font-size:13.5px;color:#78350f;margin-top:6px
+  }
+  code, .kbd{
+    background:#eef2ff;border:1px solid #dbe3ff;border-radius:5px;padding:1px 6px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;color:#3730a3;word-break:break-word
+  }
+
+  /* ---------- Blocos / copy ---------- */
+  .bloco{background:#0f172a;border-radius:var(--radius);overflow:hidden;margin-top:16px;border:1px solid #1e293b}
+  .bloco-bar{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    background:#1e293b;padding:9px 14px
+  }
+  .bloco-bar span{color:#94a3b8;font-size:12.5px;font-weight:700;font-family:ui-monospace,monospace}
+  .copy-btn{
+    background:#334155;color:#e2e8f0;border:1px solid #475569;border-radius:7px;
+    padding:5px 14px;font-size:12.5px;font-weight:700;cursor:pointer;transition:.15s
+  }
+  .copy-btn:hover{background:#475569}
+  .copy-btn.ok{background:var(--green);border-color:var(--green);color:#fff}
+  .bloco pre{
+    color:#e2e8f0;padding:18px 20px;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre-wrap;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace
+  }
+
+  /* ---------- Estrutura ---------- */
+  .tree{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px 24px;margin-top:16px}
+  .tree pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;line-height:1.8;color:var(--text);overflow-x:auto}
+  .tree .orig{color:var(--green);font-weight:700}
+  .tree .new{color:var(--primary);font-weight:700}
+  .tree .cmt{color:var(--muted)}
+
+  /* ---------- Tabela ---------- */
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:16px;font-size:14px}
+  th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--soft);color:var(--ink);font-size:13px;text-transform:uppercase;letter-spacing:.4px}
+  tr:last-child td{border-bottom:none}
+  .tag-free{color:var(--green);font-weight:800}
+  .tag-paid{color:var(--amber);font-weight:800}
+  .table-scroll{overflow-x:auto;margin-top:16px}
+  .table-scroll table{margin-top:0}
+
+  /* ---------- Checklist ---------- */
+  .checklist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin-top:16px}
+  .progress-outer{background:var(--line);border-radius:999px;height:12px;overflow:hidden;margin:10px 0 18px}
+  .progress-inner{background:linear-gradient(90deg,#2563eb,#16a34a);height:100%;width:0%;transition:width .35s;border-radius:999px}
+  .check-item{display:flex;gap:12px;align-items:flex-start;padding:10px 4px;border-bottom:1px dashed var(--line);cursor:pointer}
+  .check-item:last-child{border-bottom:none}
+  .check-item input{width:19px;height:19px;margin-top:3px;accent-color:var(--primary);cursor:pointer;flex-shrink:0}
+  .check-item label{cursor:pointer;font-size:14.5px}
+  .check-item.done label{text-decoration:line-through;color:var(--muted)}
+  .progress-label{font-size:13px;color:var(--muted);font-weight:700}
+
+  /* ---------- FAQ ---------- */
+  details.faq{
+    background:var(--card);border:1px solid var(--line);border-radius:10px;margin-top:10px;overflow:hidden
+  }
+  details.faq summary{
+    padding:15px 18px;font-weight:700;color:var(--ink);cursor:pointer;font-size:14.5px;list-style:none;
+    display:flex;justify-content:space-between;gap:12px;align-items:center
+  }
+  details.faq summary::-webkit-details-marker{display:none}
+  details.faq summary::after{content:"+";font-size:20px;color:var(--primary);font-weight:800;flex-shrink:0}
+  details.faq[open] summary::after{content:"–"}
+  details.faq .faq-body{padding:0 18px 16px;font-size:14px;color:var(--muted);border-top:1px dashed var(--line);padding-top:12px;margin:0 0}
+
+  /* ---------- Alerta ---------- */
+  .alert-red{
+    background:var(--red-soft);border:1px solid #fecaca;border-left:5px solid var(--red);
+    border-radius:10px;padding:18px 22px;margin-top:16px;font-size:14.5px;color:#7f1d1d
+  }
+  .alert-red strong{color:var(--red)}
+
+  footer{margin-top:56px;padding:28px 0;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
+
+  @media (max-width:640px){
+    .hero h1{font-size:24px}
+    .steps li{padding-left:42px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">CURADORIA PRIME · KIT PÚBLICO DE BOOT EDITORIAL</span>
+    <h1>🚚 Portabilidade do agente: como levá-lo para o Claude.ai e o VS Code</h1>
+    <p>Guia interativo para usar o agente editorial da casa em outros ambientes — <strong style="color:#fff">grátis ou com custo baixo</strong>. O agente é um kit de arquivos + regras (sem código), então funciona em qualquer ferramenta que aceite instruções e arquivos. Todo este material vive na pasta <code style="background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);color:#fff">PORTABILIDADE/</code>, separado do kit original.</p>
+  </div>
+</header>
+
+<!-- ============ NAV ============ -->
+<nav class="topnav">
+  <div class="wrap">
+    <a href="#conceito">💡 Conceito</a>
+    <a href="#quiz">🧭 Qual caminho?</a>
+    <a href="#caminhos">🛤️ Os 4 caminhos</a>
+    <a href="#blocos">📋 Blocos prontos</a>
+    <a href="#estrutura">📁 Estrutura</a>
+    <a href="#custos">💰 Custos</a>
+    <a href="#checklist">✅ Checklist</a>
+    <a href="#faq">❓ FAQ</a>
+    <a href="#nao-levar">⚠️ O que não levar</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ============ CONCEITO ============ -->
+<section id="conceito">
+  <div class="wrap">
+    <h2>💡 Por que o agente é portátil</h2>
+    <p class="sub">O "agente Curadoria Prime" não é um programa: é um <strong>kit de boot</strong> — arquivos de referência + regras editoriais + uma mensagem de ativação. Só muda o mecanismo de entrega em cada ambiente.</p>
+    <div class="grid3">
+      <div class="card">
+        <span class="ico">📦</span>
+        <h3>O agente = 3 arquivos + regras</h3>
+        <p><code>README.md</code> (visão do kit), <code>CHECKLIST-EEAT-PUBLICO.md</code> (padrões E-E-A-T obrigatórios) e <code>ARTIGO-A-GUTENBERG.html</code> (modelo de estrutura dos artigos).</p>
+      </div>
+      <div class="card">
+        <span class="ico">🔁</span>
+        <h3>O que muda de um ambiente para outro</h3>
+        <p>No Agent Mode o agente <strong>baixa as URLs raw sozinho</strong>. No Claude.ai os arquivos vão <strong>anexados</strong>. No VS Code eles já estão <strong>locais no workspace</strong>.</p>
+      </div>
+      <div class="card">
+        <span class="ico">🧱</span>
+        <h3>Tudo separado do kit original</h3>
+        <p>Os 4 arquivos da raiz seguem intocados. Este guia, os blocos adaptados e os modelos de regras vivem só na pasta <code>PORTABILIDADE/</code> — removível sem efeito colateral.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section id="quiz">
+  <div class="wrap">
+    <h2>🧭 Qual caminho é o seu?</h2>
+    <p class="sub">Responda 2 perguntas e receba a recomendação com o custo correspondente.</p>
+    <div class="quiz-box" id="quizBox"></div>
+  </div>
+</section>
+
+<!-- ============ CAMINHOS ============ -->
+<section id="caminhos">
+  <div class="wrap">
+    <h2>🛤️ Os 4 caminhos, passo a passo</h2>
+    <p class="sub">Escolha a aba. Cada caminho lista pré-requisitos, passos e avisos.</p>
+
+    <div class="tabs" role="tablist">
+      <button class="tab-btn active" data-tab="p1" role="tab">1 · Claude.ai Projects</button>
+      <button class="tab-btn" data-tab="p2" role="tab">2 · Claude.ai chat</button>
+      <button class="tab-btn" data-tab="p3" role="tab">3 · VS Code + Copilot Free</button>
+      <button class="tab-btn" data-tab="p4" role="tab">4 · VS Code + Cline (BYOK)</button>
+    </div>
+
+    <!-- P1 -->
+    <div class="tab-panel active" id="p1" role="tabpanel">
+      <h3>Caminho 1 — Claude.ai com Projects (o mais confortável)</h3>
+      <span class="cost-badge cost-free">Grátis com limites · Pro ~US$ 20/mês opcional</span>
+      <ol class="steps">
+        <li>Em <strong>claude.ai</strong>, abra <strong>Projects → New project</strong> (ex.: “Curadoria Prime — Editorial”).</li>
+        <li>Em <strong>Project knowledge</strong>, suba os 3 arquivos do kit: <code>README.md</code>, <code>CHECKLIST-EEAT-PUBLICO.md</code>, <code>ARTIGO-A-GUTENBERG.html</code>.</li>
+        <li>Em <strong>Project instructions</strong>, cole a essência das regras (o texto de <code>vscode/copilot-instructions.md</code> serve igual): regra-mãe de honestidade, preço com data, afiliado sinalizado, antialucinação.</li>
+        <li>Pronto: <strong>todo chat iniciado dentro do projeto herda arquivos + instruções</strong> — nunca mais precisa colar bloco de boot.</li>
+      </ol>
+      <div class="note">⚠️ No plano Free, Projects tem limite de quantidade (~5 projetos) e capacidade menor de arquivos. Se a sua conta não exibir Projects ou estourar a cota, use o Caminho 2. O plano Pro (~US$ 20/mês) libera projetos ilimitados e RAG automático.</div>
+    </div>
+
+    <!-- P2 -->
+    <div class="tab-panel" id="p2" role="tabpanel">
+      <h3>Caminho 2 — Claude.ai chat simples (sempre funciona)</h3>
+      <span class="cost-badge cost-free">Grátis (com limite de mensagens)</span>
+      <ol class="steps">
+        <li>Abra um <strong>novo chat</strong> no claude.ai e <strong>anexe os 3 arquivos</strong> do kit (o plano Free permite anexos por conversa).</li>
+        <li>Cole o conteúdo do bloco adaptado (aba <strong>📋 Blocos prontos → Claude.ai</strong>) como 1ª mensagem.</li>
+        <li>Peça para o agente confirmar a leitura e resumir o padrão da casa antes de produzir qualquer coisa.</li>
+      </ol>
+      <div class="note">⚠️ <strong>Não use o <code>BLOCO-URLS-PARA-PROMPT.txt</code> aqui</strong>: o chat do claude.ai não faz fetch confiável de URLs raw — esse bloco é exclusivo do Agent Mode. Por isso o bloco adaptado usa anexos.</div>
+    </div>
+
+    <!-- P3 -->
+    <div class="tab-panel" id="p3" role="tabpanel">
+      <h3>Caminho 3 — VS Code com GitHub Copilot (Free)</h3>
+      <span class="cost-badge cost-free">Grátis para sempre: ~50 chats/mês + 2.000 conclusões</span>
+      <ol class="steps">
+        <li>Instale a extensão <strong>GitHub Copilot</strong> no VS Code e entre com sua conta GitHub (plano Free).</li>
+        <li>Abra <strong>este repositório</strong> como workspace (<code>git clone</code> + File → Open Folder).</li>
+        <li>No Copilot Chat, cole o bloco adaptado (aba <strong>📋 Blocos prontos → VS Code</strong>) como 1ª mensagem.</li>
+        <li><em>(Opcional, recomendado)</em> Copie <code>PORTABILIDADE/vscode/copilot-instructions.md</code> para <code>.github/copilot-instructions.md</code> na raiz do repo — daí o Copilot <strong>carrega as regras da casa automaticamente</strong> em todo chat.</li>
+      </ol>
+      <div class="note">⚠️ O limite do Free (~50 mensagens de chat/agente por mês) acaba rápido em produção intensa. Se estourar: aguarde o reset mensal, use o Caminho 4 ou avalie o Copilot Pro (~US$ 10/mês).</div>
+    </div>
+
+    <!-- P4 -->
+    <div class="tab-panel" id="p4" role="tabpanel">
+      <h3>Caminho 4 — VS Code com Cline / Roo Code / Kilo Code (custo zero ou quase)</h3>
+      <span class="cost-badge cost-free">Extensão grátis · modelo grátis (Gemini/OpenRouter) ou centavos por uso</span>
+      <ol class="steps">
+        <li>Instale a extensão <strong>Cline</strong> (ou Roo Code / Kilo Code) — grátis e open source.</li>
+        <li>Configure o provedor do modelo (<strong>BYOK — bring your own key</strong>):
+          <br>• <strong>Custo zero:</strong> chave gratuita do Google AI Studio (Gemini) ou modelos gratuitos do OpenRouter;
+          <br>• <strong>Custo baixo:</strong> chave pay-per-use (Anthropic, OpenRouter etc.) — paga só os tokens usados, tipicamente centavos por sessão.</li>
+        <li>Abra este repo como workspace e cole o bloco adaptado (aba <strong>📋 Blocos prontos → VS Code</strong>) como 1ª mensagem.</li>
+        <li><em>(Opcional, recomendado)</em> Copie <code>PORTABILIDADE/vscode/clinerules</code> para <code>.clinerules</code> na raiz do workspace — as regras passam a ser lidas automaticamente.</li>
+        <li>Bônus: aqui o agente também <strong>cria/edita arquivos HTML no repo e roda comandos</strong> — ideal para produção em lote de artigos.</li>
+      </ol>
+      <div class="note">💡 Nas cotas gratuitas de API há limites diários de requisições; para rotina pesada, a chave pay-per-use costuma custar menos que uma assinatura.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BLOCOS ============ -->
+<section id="blocos">
+  <div class="wrap">
+    <h2>📋 Blocos prontos (copiar e colar)</h2>
+    <p class="sub">Versões limpas, sem as linhas de instrução. Cada botão copia o texto completo.</p>
+
+    <div class="bloco">
+      <div class="bloco-bar">
+        <span>BLOCO-CLAUDE-AI · 1ª mensagem no Claude.ai (com os 3 arquivos anexados)</span>
+        <button class="copy-btn" data-copy="pre-claude">📋 Copiar</button>
+      </div>
+<pre id="pre-claude">Você agora é o agente editorial da Curadoria Prime (reviews e comparativos de tecnologia, Brasil). Os 3 arquivos anexados definem o padrão da casa:
+
+- README.md — visão geral do kit e o que é público vs. privado na operação
+- CHECKLIST-EEAT-PUBLICO.md — padrões E-E-A-T OBRIGATÓRIOS em qualquer artigo
+- ARTIGO-A-GUTENBERG.html — espelho do modelo Gutenberg; use como referência de estrutura (blocos wp:html com CSS inline, cabeçalho doc-only com campos de SEO, Schema JSON-LD ao final)
+
+Antes de produzir qualquer coisa:
+1. Leia os 3 arquivos anexados por completo.
+2. Siga o checklist E-E-A-T integralmente. Regra-mãe: NUNCA simular posse ou teste físico de produto — o selo "Testado por nós" é reservado para testes reais futuros.
+3. Preço sempre com data de verificação explícita; links de afiliado sempre com rel="sponsored" e aviso de comissão no topo.
+4. Citações e vídeos: só fontes cuja existência você confirmou (antialucinação).
+5. Contexto sensível (handoff de sessão, roadmap de pautas, log-mestre, packs de preço) NÃO está neste kit por estratégia. Quando eu anexar à parte, trate como prioridade máxima e nunca o republique.
+
+Confirme que leu os arquivos, resuma em 3 linhas o padrão da casa e pergunte o que falta antes de começar.</pre>
+    </div>
+
+    <div class="bloco">
+      <div class="bloco-bar">
+        <span>BLOCO-VSCODE · 1ª mensagem no VS Code (repo aberto como workspace)</span>
+        <button class="copy-btn" data-copy="pre-vscode">📋 Copiar</button>
+      </div>
+<pre id="pre-vscode">Leia estes arquivos do workspace ANTES de produzir qualquer coisa:
+
+README.md
+CHECKLIST-EEAT-PUBLICO.md
+ARTIGO-A-GUTENBERG.html
+
+Eles definem o padrão editorial da Curadoria Prime:
+- O CHECKLIST-EEAT-PUBLICO.md é obrigatório em qualquer artigo (regra-mãe: NUNCA simular posse ou teste físico de produto; selo "Testado por nós" é reservado).
+- O ARTIGO-A-GUTENBERG.html é a referência de estrutura (blocos wp:html com CSS inline, cabeçalho doc-only de SEO, Schema JSON-LD ao final).
+- Preço sempre com data de verificação; afiliado sempre com rel="sponsored".
+
+Contexto sensível (handoff de sessão, roadmap de pautas, log-mestre, packs de preço) não vive neste repo público por estratégia — eu forneço à parte quando necessário. Nunca escreva esse tipo de dado aqui.
+
+Confirme a leitura, resuma em 3 linhas o padrão da casa e me diga o que falta antes de começar.</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ESTRUTURA ============ -->
+<section id="estrutura">
+  <div class="wrap">
+    <h2>📁 Estrutura do repositório</h2>
+    <p class="sub">Kit original na raiz, intocado. Tudo que é de portabilidade fica isolado em <code>PORTABILIDADE/</code>.</p>
+    <div class="tree">
+<pre>curadoria-prime-boot/
+├── README.md                    <span class="cmt">←</span> <span class="orig">kit original</span> <span class="cmt">(visão do boot)</span>
+├── ARTIGO-A-GUTENBERG.html      <span class="cmt">←</span> <span class="orig">kit original</span> <span class="cmt">(modelo de artigo)</span>
+├── CHECKLIST-EEAT-PUBLICO.md    <span class="cmt">←</span> <span class="orig">kit original</span> <span class="cmt">(padrões E-E-A-T)</span>
+├── BLOCO-URLS-PARA-PROMPT.txt   <span class="cmt">←</span> <span class="orig">kit original</span> <span class="cmt">(só p/ Agent Mode)</span>
+└── PORTABILIDADE/               <span class="cmt">←</span> <span class="new">material novo, isolado</span>
+    ├── GUIA-PORTABILIDADE.md               <span class="cmt">(guia em Markdown)</span>
+    ├── GUIA-PORTABILIDADE-INTERATIVO.html  <span class="cmt">(esta página)</span>
+    ├── BLOCO-CLAUDE-AI.txt                 <span class="cmt">(1ª mensagem p/ Claude.ai)</span>
+    ├── BLOCO-VSCODE.txt                    <span class="cmt">(1ª mensagem p/ VS Code)</span>
+    └── vscode/
+        ├── copilot-instructions.md  <span class="cmt">(opcional → .github/ na raiz)</span>
+        └── clinerules               <span class="cmt">(opcional → .clinerules na raiz)</span></pre>
+    </div>
+    <div class="note" style="margin-top:14px">💡 Os dois arquivos dentro de <code>vscode/</code> são <strong>modelos opcionais</strong>: eles só funcionam na raiz do workspace (exigência do Copilot e do Cline), então ficam guardados aqui e você copia para a raiz apenas se quiser o carregamento automático das regras.</div>
+  </div>
+</section>
+
+<!-- ============ CUSTOS ============ -->
+<section id="custos">
+  <div class="wrap">
+    <h2>💰 Comparativo de custos</h2>
+    <p class="sub">Valores de referência (ago/2026) — confirme na hora de assinar.</p>
+    <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>Opção</th><th>Custo</th><th>O que você ganha</th><th>Limites</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Claude.ai Free</strong></td>
+          <td class="tag-free">R$ 0</td>
+          <td>Chat + anexos; Projects com instruções e knowledge</td>
+          <td>Limite de mensagens; ~5 projetos; knowledge menor</td>
+        </tr>
+        <tr>
+          <td><strong>Claude Pro</strong></td>
+          <td class="tag-paid">~US$ 20/mês</td>
+          <td>Projetos ilimitados, RAG automático (10× contexto), mais mensagens</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>GitHub Copilot Free</strong></td>
+          <td class="tag-free">R$ 0</td>
+          <td>Chat/agente no VS Code, <code>.github/copilot-instructions.md</code> automático</td>
+          <td>~50 chats + 2.000 conclusões por mês</td>
+        </tr>
+        <tr>
+          <td><strong>GitHub Copilot Pro</strong></td>
+          <td class="tag-paid">~US$ 10/mês</td>
+          <td>Chat/agente sem limite no VS Code</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td><strong>Cline + Gemini (AI Studio) ou OpenRouter free</strong></td>
+          <td class="tag-free">R$ 0</td>
+          <td>Agente completo no VS Code (arquivos + terminal), sem assinatura</td>
+          <td>Cotas diárias de requisições dos provedores gratuitos</td>
+        </tr>
+        <tr>
+          <td><strong>Cline + API pay-per-use</strong></td>
+          <td class="tag-paid">centavos/sessão</td>
+          <td>Modelos mais fortes, paga só o que usar</td>
+          <td>—</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHECKLIST ============ -->
+<section id="checklist">
+  <div class="wrap">
+    <h2>✅ Checklist de ativação</h2>
+    <p class="sub">Marque conforme avança — o progresso fica salvo neste navegador.</p>
+    <div class="checklist">
+      <span class="progress-label" id="progLabel">0 de 6 concluídos</span>
+      <div class="progress-outer"><div class="progress-inner" id="progBar"></div></div>
+      <div id="checkItems">
+        <div class="check-item"><input type="checkbox" id="c1"><label for="c1">Escolhi o caminho no quiz 🧭 (ou direto nas abas)</label></div>
+        <div class="check-item"><input type="checkbox" id="c2"><label for="c2">Clonei/baixei o repositório com o kit</label></div>
+        <div class="check-item"><input type="checkbox" id="c3"><label for="c3">Anexei/subi os 3 arquivos do kit (ou abri o repo no VS Code)</label></div>
+        <div class="check-item"><input type="checkbox" id="c4"><label for="c4">Colei o bloco certo como 1ª mensagem (Claude.ai ou VS Code)</label></div>
+        <div class="check-item"><input type="checkbox" id="c5"><label for="c5">O agente confirmou a leitura e resumiu o padrão da casa</label></div>
+        <div class="check-item"><input type="checkbox" id="c6"><label for="c6">(Opcional) Ativei o carregamento automático no VS Code (<code>.github/</code> ou <code>.clinerules</code>)</label></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="wrap">
+    <h2>❓ Perguntas frequentes</h2>
+
+    <details class="faq">
+      <summary>O bloco de URLs (<code>BLOCO-URLS-PARA-PROMPT.txt</code>) funciona no Claude.ai?</summary>
+      <div class="faq-body">Não de forma confiável — ele depende de o agente fazer fetch das URLs raw, o que só o Agent Mode garante. No Claude.ai, anexe os 3 arquivos e use o <code>BLOCO-CLAUDE-AI.txt</code>. No VS Code os arquivos já são locais, então use o <code>BLOCO-VSCODE.txt</code>.</div>
+    </details>
+
+    <details class="faq">
+      <summary>Preciso pagar o Claude para usar Projects?</summary>
+      <div class="faq-body">Não. Contas Free têm Projects com limites (cerca de 5 projetos e capacidade menor de arquivos). O plano Pro (~US$ 20/mês) libera projetos ilimitados e RAG automático quando a knowledge satura. Se Projects não aparecer na sua conta, siga o Caminho 2 (chat com anexos).</div>
+    </details>
+
+    <details class="faq">
+      <summary>Estourei os 50 chats/mês do Copilot Free. E agora?</summary>
+      <div class="faq-body">Três saídas: aguardar o reset mensal, migrar para o Caminho 4 (Cline com chave própria — grátis ou centavos) ou assinar o Copilot Pro (~US$ 10/mês). Para produção editorial intensa, o Caminho 4 costuma ser o melhor custo-benefício.</div>
+    </details>
+
+    <details class="faq">
+      <summary>Preciso colocar <code>.clinerules</code> / <code>.github/</code> na raiz?</summary>
+      <div class="faq-body">Só se quiser o carregamento automático das regras — é exigência das ferramentas (Copilot lê <code>.github/copilot-instructions.md</code>; Cline/Roo/Kilo leem <code>.clinerules</code> na raiz do workspace). Sem isso, basta colar o bloco de boot na 1ª mensagem de cada sessão.</div>
+    </details>
+
+    <details class="faq">
+      <summary>Posso apagar a pasta <code>PORTABILIDADE/</code> depois?</summary>
+      <div class="faq-body">Pode. Ela é 100% isolada: os 4 arquivos do kit na raiz não dependem de nada daqui, e o boot do Agent Mode continua funcionando igual.</div>
+    </details>
+
+    <details class="faq">
+      <summary>O agente no Claude.ai/VS Code pode acessar meu repo privado (handoff, preços)?</summary>
+      <div class="faq-body">Não automaticamente — e é assim que deve ser. Esses dados não vivem neste repo público. Quando precisar deles em alguma ferramenta, anexe à parte, como no fluxo do Agent Mode, e prefira ambientes onde você controle a retenção de dados.</div>
+    </details>
+  </div>
+</section>
+
+<!-- ============ NÃO LEVAR ============ -->
+<section id="nao-levar">
+  <div class="wrap">
+    <h2>⚠️ O que NÃO levar</h2>
+    <div class="alert-red">
+      <strong>Este repo público não contém — e nenhuma ferramenta externa deve receber sem necessidade:</strong> handoff de sessão, roadmap de pautas, log-mestre de decisões e packs de preços. Quando esses dados forem necessários em alguma ferramenta, eles devem ser <strong>anexados à parte</strong> (vindos do repositório privado da operação), nunca salvos aqui nem colados em ambientes sem controle de retenção.
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    Curadoria Prime · Kit público de boot editorial · material de portabilidade (pasta <code>PORTABILIDADE/</code>) · gerado em 04/08/2026
+  </div>
+</footer>
+
+<script>
+/* ================= Tabs ================= */
+const tabBtns = document.querySelectorAll('.tab-btn');
+const panels  = document.querySelectorAll('.tab-panel');
+function selectTab(id, scroll){
+  tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === id));
+  panels.forEach(p => p.classList.toggle('active', p.id === id));
+  if (scroll) document.getElementById('caminhos').scrollIntoView({behavior:'smooth'});
+}
+tabBtns.forEach(b => b.addEventListener('click', () => selectTab(b.dataset.tab, false)));
+
+/* ================= Quiz ================= */
+const quizBox = document.getElementById('quizBox');
+const quiz = {
+  step: 0,
+  answers: [],
+  questions: [
+    {
+      q: "Onde você quer trabalhar com o agente?",
+      opts: [
+        {label:"🌐 No navegador (claude.ai)", desc:"Conversar, revisar e gerar artigos sem instalar nada", next:1},
+        {label:"💻 No VS Code", desc:"Mexer direto nos arquivos do repo, produção em lote", next:2}
+      ]
+    },
+    {
+      q: "No Claude.ai, como você prefere?",
+      opts: [
+        {label:"🏗️ Configurar uma vez e esquecer", desc:"Projects: arquivos + instruções permanentes (grátis até ~5 projetos)", result:{tab:'p1', title:'Caminho 1 — Claude.ai Projects', text:'Configure o projeto uma vez (knowledge + instructions) e todo chat novo já nasce com o agente. Grátis com limites; Pro só se estourar a cota.'}},
+        {label:"🧷 O mais simples possível", desc:"Chat comum: anexar os 3 arquivos e colar o bloco a cada conversa", result:{tab:'p2', title:'Caminho 2 — Claude.ai chat simples', text:'Novo chat → anexar os 3 arquivos do kit → colar o BLOCO-CLAUDE-AI. Funciona sempre, sem configuração.'}}
+      ]
+    },
+    {
+      q: "No VS Code, qual é o seu volume de uso?",
+      opts: [
+        {label:"🐢 Leve / ocasional", desc:"Até ~50 conversas por mês — Copilot Free resolve", result:{tab:'p3', title:'Caminho 3 — VS Code + GitHub Copilot Free', text:'Grátis para sempre: ~50 chats/mês + 2.000 conclusões. Instale a extensão, abra o repo e cole o BLOCO-VSCODE. Opcional: regras automáticas via .github/.'}},
+        {label:"🐇 Intenso / produção de artigos", desc:"Uso diário — Cline com modelo grátis ou centavos por uso", result:{tab:'p4', title:'Caminho 4 — VS Code + Cline (BYOK)', text:'Extensão grátis + chave própria: cota gratuita do Gemini (AI Studio) ou OpenRouter free = custo zero; API pay-per-use = centavos. Ainda edita arquivos e roda comandos.'}}
+      ]
+    }
+  ],
+  render(){
+    if (this.step < this.questions.length){
+      const item = this.questions[this.step];
+      quizBox.innerHTML = `
+        <div class="quiz-step">Pergunta ${this.step + 1} de ${this.questions.length}</div>
+        <div class="quiz-q">${item.q}</div>
+        <div class="quiz-opts">
+          ${item.opts.map((o,i) => `
+            <button class="quiz-opt" data-i="${i}">
+              <strong>${o.label}</strong><span>${o.desc}</span>
+            </button>`).join('')}
+        </div>
+        ${this.step > 0 ? '<br><button class="btn ghost" id="quizBack" type="button">← Voltar</button>' : ''}
+        <div class="quiz-result" id="quizResult"></div>`;
+      quizBox.querySelectorAll('.quiz-opt').forEach(btn =>
+        btn.addEventListener('click', () => {
+          const o = item.opts[+btn.dataset.i];
+          if (o.result){ this.showResult(o.result); }
+          else { this.step = o.next; this.render(); }
+        }));
+      const back = document.getElementById('quizBack');
+      if (back) back.addEventListener('click', () => { this.step--; this.render(); });
+    }
+  },
+  showResult(r){
+    const box = document.getElementById('quizResult');
+    box.innerHTML = `
+      <h4>✅ Recomendado: ${r.title}</h4>
+      <p>${r.text}</p>
+      <button class="btn" id="quizGo" type="button">Ver o passo a passo ↓</button>
+      <button class="btn ghost" id="quizRestart" type="button" style="margin-left:8px">↺ Refazer</button>`;
+    box.classList.add('show');
+    document.getElementById('quizGo').addEventListener('click', () => selectTab(r.tab, true));
+    document.getElementById('quizRestart').addEventListener('click', () => { this.step = 0; this.render(); });
+    quizBox.querySelectorAll('.quiz-opt').forEach(b => b.disabled = true);
+    const back = document.getElementById('quizBack'); if (back) back.style.display = 'none';
+  }
+};
+quiz.render();
+
+/* ================= Copy ================= */
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const txt = document.getElementById(btn.dataset.copy).innerText;
+    try {
+      await navigator.clipboard.writeText(txt);
+      flash(btn);
+    } catch (e) {
+      const ta = document.createElement('textarea');
+      ta.value = txt; document.body.appendChild(ta);
+      ta.select(); document.execCommand('copy'); ta.remove();
+      flash(btn);
+    }
+  });
+});
+function flash(btn){
+  const old = btn.textContent;
+  btn.textContent = '✓ Copiado!'; btn.classList.add('ok');
+  setTimeout(() => { btn.textContent = old; btn.classList.remove('ok'); }, 1800);
+}
+
+/* ================= Checklist ================= */
+const KEY = 'cp-port-checklist';
+const boxes = [...document.querySelectorAll('#checkItems input')];
+const saved = JSON.parse(localStorage.getItem(KEY) || '[]');
+boxes.forEach((b,i) => { b.checked = !!saved[i]; });
+function updateProgress(){
+  const done = boxes.filter(b => b.checked).length;
+  document.getElementById('progBar').style.width = (done / boxes.length * 100) + '%';
+  document.getElementById('progLabel').textContent =
+    done === boxes.length ? '🎉 Tudo pronto — agente ativado!' : `${done} de ${boxes.length} concluídos`;
+  localStorage.setItem(KEY, JSON.stringify(boxes.map(b => b.checked)));
+  boxes.forEach(b => b.closest('.check-item').classList.toggle('done', b.checked));
+}
+boxes.forEach(b => b.addEventListener('change', updateProgress));
+updateProgress();
+</script>
+</body>
+</html>

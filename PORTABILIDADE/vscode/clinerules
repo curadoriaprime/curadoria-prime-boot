@@ -1,0 +1,8 @@
+# Regras do agente — Curadoria Prime (kit público de boot editorial)
+# Lidas automaticamente por Cline / Roo Code / Kilo Code ao abrir este workspace.
+
+- Antes de produzir qualquer artigo, edição ou HTML: leia CHECKLIST-EEAT-PUBLICO.md e siga-o integralmente; use ARTIGO-A-GUTENBERG.html como referência de estrutura (blocos wp:html com CSS inline, cabeçalho doc-only de SEO, Schema JSON-LD ao final); leia README.md para entender o escopo público do repo.
+- Regra-mãe: NUNCA simular posse ou teste físico de produto. O selo "✅ Testado por nós" é reservado para testes reais futuros.
+- Preço sempre com data de verificação explícita. Links de afiliado sempre com rel="sponsored" e aviso de comissão no topo.
+- Antialucinação: só citar fonte, vídeo ou avaliação cuja existência foi confirmada. Todo artigo fecha com a seção "📚 Fontes consultadas".
+- Dados estratégicos (handoff de sessão, roadmap de pautas, log-mestre, packs de preço) vivem no repositório privado — nunca escreva nada disso neste repo público.

@@ -1,0 +1,17 @@
+[COLE NA 1ª MENSAGEM DO CHAT NO VS CODE (Copilot Chat, Cline, Roo ou Kilo Code)
+com ESTE repositório aberto como workspace — aqui os arquivos são locais, não precisa fetch]
+
+Leia estes arquivos do workspace ANTES de produzir qualquer coisa:
+
+README.md
+CHECKLIST-EEAT-PUBLICO.md
+ARTIGO-A-GUTENBERG.html
+
+Eles definem o padrão editorial da Curadoria Prime:
+- O CHECKLIST-EEAT-PUBLICO.md é obrigatório em qualquer artigo (regra-mãe: NUNCA simular posse ou teste físico de produto; selo "Testado por nós" é reservado).
+- O ARTIGO-A-GUTENBERG.html é a referência de estrutura (blocos wp:html com CSS inline, cabeçalho doc-only de SEO, Schema JSON-LD ao final).
+- Preço sempre com data de verificação; afiliado sempre com rel="sponsored".
+
+Contexto sensível (handoff de sessão, roadmap de pautas, log-mestre, packs de preço) não vive neste repo público por estratégia — eu forneço à parte quando necessário. Nunca escreva esse tipo de dado aqui.
+
+Confirme a leitura, resuma em 3 linhas o padrão da casa e me diga o que falta antes de começar.
