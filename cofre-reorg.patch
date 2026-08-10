@@ -1,0 +1,60 @@
+From 22ab35d5a5c3c86cf229dfd3bd175bd051c14c91 Mon Sep 17 00:00:00 2001
+From: arena-agent <arena-agent@curadoriaprime.com>
+Date: Mon, 10 Aug 2026 17:08:57 +0000
+Subject: [PATCH] organiza: move publicados para artigos-publicados e
+ rascunhos/agendados para artigos
+
+---
+ .../ARTIGO-A-GUTENBERG.html                                       | 0
+ .../Guia-Dia-dos-Pais.html                                        | 0
+ {CURADORIA-PRIME-CONTEXTO => artigos}/Aspire5.html                | 0
+ {CURADORIA-PRIME-CONTEXTO => artigos}/IdeaPad1.html               | 0
+ {CURADORIA-PRIME-CONTEXTO => artigos}/KIT-VOLTA-AS-AULA           | 0
+ {CURADORIA-PRIME-CONTEXTO => artigos}/LENOVO-X-ACER               | 0
+ .../Lenovo-IdeaPad-1-ou-Acer-Aspire-5                             | 0
+ .../Power-Bank-no-Avi\303\243o"                                   | 0
+ 8 files changed, 0 insertions(+), 0 deletions(-)
+ rename {CURADORIA-PRIME-CONTEXTO => artigos-publicados}/ARTIGO-A-GUTENBERG.html (100%)
+ rename {CURADORIA-PRIME-CONTEXTO => artigos-publicados}/Guia-Dia-dos-Pais.html (100%)
+ rename {CURADORIA-PRIME-CONTEXTO => artigos}/Aspire5.html (100%)
+ rename {CURADORIA-PRIME-CONTEXTO => artigos}/IdeaPad1.html (100%)
+ rename {CURADORIA-PRIME-CONTEXTO => artigos}/KIT-VOLTA-AS-AULA (100%)
+ rename {CURADORIA-PRIME-CONTEXTO => artigos}/LENOVO-X-ACER (100%)
+ rename {CURADORIA-PRIME-CONTEXTO => artigos}/Lenovo-IdeaPad-1-ou-Acer-Aspire-5 (100%)
+ rename "CURADORIA-PRIME-CONTEXTO/Power-Bank-no-Avi\303\243o" => "artigos/Power-Bank-no-Avi\303\243o" (100%)
+
+diff --git a/CURADORIA-PRIME-CONTEXTO/ARTIGO-A-GUTENBERG.html b/artigos-publicados/ARTIGO-A-GUTENBERG.html
+similarity index 100%
+rename from CURADORIA-PRIME-CONTEXTO/ARTIGO-A-GUTENBERG.html
+rename to artigos-publicados/ARTIGO-A-GUTENBERG.html
+diff --git a/CURADORIA-PRIME-CONTEXTO/Guia-Dia-dos-Pais.html b/artigos-publicados/Guia-Dia-dos-Pais.html
+similarity index 100%
+rename from CURADORIA-PRIME-CONTEXTO/Guia-Dia-dos-Pais.html
+rename to artigos-publicados/Guia-Dia-dos-Pais.html
+diff --git a/CURADORIA-PRIME-CONTEXTO/Aspire5.html b/artigos/Aspire5.html
+similarity index 100%
+rename from CURADORIA-PRIME-CONTEXTO/Aspire5.html
+rename to artigos/Aspire5.html
+diff --git a/CURADORIA-PRIME-CONTEXTO/IdeaPad1.html b/artigos/IdeaPad1.html
+similarity index 100%
+rename from CURADORIA-PRIME-CONTEXTO/IdeaPad1.html
+rename to artigos/IdeaPad1.html
+diff --git a/CURADORIA-PRIME-CONTEXTO/KIT-VOLTA-AS-AULA b/artigos/KIT-VOLTA-AS-AULA
+similarity index 100%
+rename from CURADORIA-PRIME-CONTEXTO/KIT-VOLTA-AS-AULA
+rename to artigos/KIT-VOLTA-AS-AULA
+diff --git a/CURADORIA-PRIME-CONTEXTO/LENOVO-X-ACER b/artigos/LENOVO-X-ACER
+similarity index 100%
+rename from CURADORIA-PRIME-CONTEXTO/LENOVO-X-ACER
+rename to artigos/LENOVO-X-ACER
+diff --git a/CURADORIA-PRIME-CONTEXTO/Lenovo-IdeaPad-1-ou-Acer-Aspire-5 b/artigos/Lenovo-IdeaPad-1-ou-Acer-Aspire-5
+similarity index 100%
+rename from CURADORIA-PRIME-CONTEXTO/Lenovo-IdeaPad-1-ou-Acer-Aspire-5
+rename to artigos/Lenovo-IdeaPad-1-ou-Acer-Aspire-5
+diff --git "a/CURADORIA-PRIME-CONTEXTO/Power-Bank-no-Avi\303\243o" "b/artigos/Power-Bank-no-Avi\303\243o"
+similarity index 100%
+rename from "CURADORIA-PRIME-CONTEXTO/Power-Bank-no-Avi\303\243o"
+rename to "artigos/Power-Bank-no-Avi\303\243o"
+-- 
+2.39.5
+
