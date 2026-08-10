@@ -52,7 +52,7 @@
 - Proteção de branch: `main` não protegido (aviso GitHub explicado)
 
 ## 6. Pendências para próxima sessão
-- [ ] Aplicar patch dos 3 links quebrados no repo (Apple TV + Tablets + Dia dos Pais Premium)
+- [x] Aplicado patch dos 3 links quebrados (10/08 18:59: ARTIGO-A 2x + Apple-TV 4K 1x, commit fix) no repo (Apple TV + Tablets + Dia dos Pais Premium)
 - [ ] Push manual do cofre pelo usuário (`/tmp/cofre-work`)
 - [ ] Rodar D-1 Acer Aspire 5 (12/08)
 - [ ] Ativar proteção de branch se desejado
