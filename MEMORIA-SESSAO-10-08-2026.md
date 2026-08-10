@@ -57,7 +57,11 @@
 - [ ] Rodar D-1 Acer Aspire 5 (12/08)
 - [ ] Ativar proteção de branch se desejado
 
-## 7. Arquivos de controle
+## 7. Correções fora do XML
+
+- [x] Yoosee LP-8177 corrigido fora do XML (10/08 19:02, 7→0 violações, salvo yoosee-lp8177-review-2026.html)
+
+## 8. Arquivos de controle
 - `artigos-publicados/*.xml` = fonte da verdade de publicados
 - `artigos/*.xml` = fonte da verdade de rascunhos/agendados
 - `cofre-reorg.patch` = patch pendente cofre
