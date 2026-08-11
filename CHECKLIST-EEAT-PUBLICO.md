@@ -74,6 +74,18 @@ Sempre que um artigo for atualizado (review, comparativo ou guia de compra), o a
 
 **Nunca** deixar data/preço desatualizado num artigo sem a ressalva de "verificar valor atual".
 
+## 8. Atualizações sempre no padrão da casa — OBRIGATÓRIO
+
+Qualquer atualização de artigo (preço, prova social, correção, reformulação de conteúdo ou layout) **não pode quebrar nem abandonar o padrão da casa**. O espelho HTML versionado e o que vai para o WordPress devem:
+
+- Usar a **estrutura de blocos Gutenberg da casa**: `wp:heading` (com âncora), `wp:paragraph`, `wp:list`, `wp:html` para componentes (cards, tabelas, boxes de aviso) — como no `ARTIGO-A-GUTENBERG.html` e no `Apple-TV-4K.html`.
+- **Não** usar HTML cru em bloco único com `<style>` próprio, `<figure>` solto, `<hr class="wp-block-separator">` ou gradientes fora do padrão visual da casa.
+- Manter o fluxo padrão: box "Tipo de análise" → hero → metodologia → índice com âncoras → seções com `wp:heading`/âncora → prova social → "Onde comprar" → veredito → byline → "Fontes consultadas" → JSON-LD.
+- Preservar as regras 1–7 (label, byline, citações, fontes, preço+prova social) ao atualizar.
+- Manter **tabelas no estilo da casa** (cabeçalho `#1d1d1f` escuro, linhas alternadas), cards verde/vermelho de prós/contrás e veredito em grade de scores.
+
+> **Regra de ouro:** ao atualizar qualquer coisa, garanta que o resultado continua sendo um **artigo no padrão da casa**. Se o arquivo de origem estava fora do padrão, a atualização deve **reconstruí-lo** para o padrão — não apenas editar o HTML quebrado.
+
 ---
 
 ## 🧪 Regras de QA associadas (valem para quem edita os HTMLs)
