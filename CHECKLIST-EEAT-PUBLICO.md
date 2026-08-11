@@ -88,6 +88,45 @@ Qualquer atualização de artigo (preço, prova social, correção, reformulaç�
 
 > **Regra de ouro:** ao atualizar qualquer coisa, garanta que o resultado continua sendo um **artigo no padrão da casa**. Se o arquivo de origem estava fora do padrão, a atualização deve **reconstruí-lo** para o padrão — não apenas editar o HTML quebrado.
 
+## 9. Prova social — bloco de 4 cards (padrão Apple TV) — OBRIGATÓRIO
+
+O bloco **"🗣️ O que dizem os compradores"** (prova social) deve seguir o **formato do Apple TV 4K**: **um bloco `wp:html` com exatamente 4 cards** em grid, sendo **2 cards Amazon** (borda/acento laranja `#FF9900`) e **2 cards Mercado Livre** (borda/acento azul `#3485DB`).
+
+**Estrutura e regras:**
+
+- Container: fundo `#f8fafc`, borda `#e2e8f0`, raio 12px, padding 20px 24px, margem inferior 28px.
+- Título: `🗣️ O que dizem os compradores` + nota de coleta `(dados coletados em dd/mm/aaaa na Amazon e Mercado Livre)`.
+- **Grid responsiva:** `display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;` — em tela larga forma **2×2 (4 blocos 2 a 2)**; no smartphone empilha em **1 coluna** (cards compactos, sem barras de distribuição ou blocos gigantes).
+- Cada card: fundo branco, borda 1px (Amazon `#ffd499` / ML `#a9cdfa`), **border-left 4px** (Amazon `#FF9900` / ML `#3485DB`), raio 10px, padding 14px 16px, fonte 13.5px.
+- Conteúdo do card: título da plataforma/variante + `⭐ nota · nº de avaliações/opiniões` + **1–2 citações** de compra verificada (semi-anonimizada + data + plataforma, conforme regra 3).
+- Ponto de atenção honesto opcional ao final, quando houver reclamações recorrentes.
+
+**Proibido** no lugar deste bloco: barras de distribuição de estrelas grandes, blocos de "Aprovado por +N" gigantes, logos grandes, ou qualquer layout que ocupe muito espaço vertical e quebre em smartphones.
+
+HTML de referência (modelo a replicar):
+
+```html
+<!-- wp:html -->
+<div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px 24px; margin-bottom: 28px;">
+<p style="margin: 0 0 14px; font-size: 16px; font-weight: 700; color: #1e293b;">🗣️ O que dizem os compradores <span style="font-size: 12px; font-weight: 400; color: #64748b;">(dados coletados em dd/mm/aaaa na Amazon e Mercado Livre)</span></p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+<div style="background: #fff; border: 1px solid #ffd499; border-left: 4px solid #FF9900; border-radius: 10px; padding: 14px 16px; font-size: 13.5px;">
+<strong style="color: #FF9900;">Amazon — [variante]</strong><br>⭐ <strong>[nota]/5</strong> · <strong>[nº] avaliações</strong><br><em>"[citação]"</em> <span style="color:#64748b;">— compra verificada, [data]</span>
+</div>
+<div style="background: #fff; border: 1px solid #ffd499; border-left: 4px solid #FF9900; border-radius: 10px; padding: 14px 16px; font-size: 13.5px;">
+<strong style="color: #FF9900;">Amazon — destaque</strong><br>⭐ <strong>[nota]/5</strong> · destaque<br><em>"[citação]"</em>
+</div>
+<div style="background: #fff; border: 1px solid #a9cdfa; border-left: 4px solid #3485DB; border-radius: 10px; padding: 14px 16px; font-size: 13.5px;">
+<strong style="color: #3485DB;">Mercado Livre — [variante]</strong><br>⭐ <strong>[nota]/5</strong> · <strong>[nº] opiniões</strong><br><em>"[citação]"</em> <span style="color:#64748b;">— comprador verificado</span>
+</div>
+<div style="background: #fff; border: 1px solid #a9cdfa; border-left: 4px solid #3485DB; border-radius: 10px; padding: 14px 16px; font-size: 13.5px;">
+<strong style="color: #3485DB;">Mercado Livre — destaque</strong><br>⭐ <strong>[nota]/5</strong> · mais vendido<br><em>"[citação]"</em>
+</div>
+</div>
+</div>
+<!-- /wp:html -->
+```
+
 ---
 
 ## 🧪 Regras de QA associadas (valem para quem edita os HTMLs)
