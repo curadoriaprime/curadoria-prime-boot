@@ -62,6 +62,18 @@ Avatar redondo 72px + nome + credencial + frase honesta + link social. HTML de r
 
 Todo artigo tem o bloco **"📚 Fontes consultadas"** com: páginas oficiais do fabricante + 1 análise independente + página(s) de varejo usada(s) nos preços.
 
+## 7. Preço + prova social nas atualizações — OBRIGATÓRIO
+
+Sempre que um artigo for atualizado (review, comparativo ou guia de compra), o agente/editor deve:
+
+1. **Pesquisar preços atuais** do(s) produto(s) no **varejo brasileiro** — prioritariamente **Amazon** e **Mercado Livre** (pode incluir Apple Store/loja oficial do fabricante quando aplicável).
+2. **Pesquisar notas/avaliações de compradores** (classificação em estrelas + nº de avaliações) nas mesmas plataformas.
+3. **Atualizar o artigo** com a faixa/preço real capturado e com a **data de verificação** explícita (formato `Atualizado: dd/mm/aaaa`), em todos os pontos onde preço aparece (hero, cards de "Onde comprar", tabela de especificações, comparativo e JSON-LD `offers`/`price`).
+4. **Adicionar/renovar a prova social**: bloco **"🗣️ O que dizem os compradores"** com notas agregadas + 1–2 citações de compras verificadas (nome semi-anonimizado + data + plataforma) + ponto de atenção honesto quando houver reclamações recorrentes.
+5. **Regra de honestidade**: usar apenas preços e citações **verificados na fonte** — nunca inventar valor, nota ou depoimento. Se não conseguir confirmar, não afirmar.
+
+**Nunca** deixar data/preço desatualizado num artigo sem a ressalva de "verificar valor atual".
+
 ---
 
 ## 🧪 Regras de QA associadas (valem para quem edita os HTMLs)
