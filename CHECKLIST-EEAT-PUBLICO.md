@@ -74,6 +74,8 @@ Sempre que um artigo for atualizado (review, comparativo ou guia de compra), o a
 
 **Nunca** deixar data/preço desatualizado num artigo sem a ressalva de "verificar valor atual".
 
+**🕒 Cadência de atualização:** reaverificar preços e notas de compradores a cada **1 a 2 meses** por artigo. Se um artigo passar desse intervalo sem atualização de preço/prova social, ele deve carregar a ressalva explícita de "preços podem estar desatualizados — verifique o valor atual" até ser reatualizado.
+
 ## 8. Atualizações sempre no padrão da casa — OBRIGATÓRIO
 
 Qualquer atualização de artigo (preço, prova social, correção, reformulação de conteúdo ou layout) **não pode quebrar nem abandonar o padrão da casa**. O espelho HTML versionado e o que vai para o WordPress devem:
